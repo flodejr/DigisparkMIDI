@@ -367,7 +367,8 @@ public:
             uchar midiMsg[4];
             uchar iii;
             iii = 0;
-            midiMsg[iii++] = 0x08; //0x08   //what is this?
+            //midiMsg[iii++] = 0x08; //0x08   //what is this?
+			midiMsg[iii++] = ((status>>4) & 0x0F) | ((status<<4) & 0xF0); //swap nibble, control check
             midiMsg[iii++] = status;        //Message type
             midiMsg[iii++] = inData1;       //Data1? //Key
             midiMsg[iii++] = inData2;
