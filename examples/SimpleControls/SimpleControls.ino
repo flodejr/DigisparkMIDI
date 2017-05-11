@@ -1,6 +1,6 @@
 #include <DigiMIDI.h>
 
-//Implements a 10 step volume control and 3 keys.
+//Implements a 32 step volume control and 3 keys.
 //Volume control attached to P5 (Reset disabled)
 //Keys implement in P0,P1 and P2 (P3 and P4 cannot be used as they are involved in USB D- and D+ pins)
 
