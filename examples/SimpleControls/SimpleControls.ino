@@ -15,7 +15,7 @@ DigiMIDIDevice midi;
 #define NumAnalog  1
 #define debounceTime 10 //10 milliseconds
 
-int dPins[NumDigital] = {0,1,2};
+int dPins[NumDigital] = {PB0,PB1,PB2};
 int aPins[NumAnalog] = {0};
 int dNotes[NumDigital] = {0x3C,0x3D,0x3E};
 int ldPins[NumDigital] = {-1,-1,-1};
@@ -37,7 +37,7 @@ void setup() {
 }
 
 void loop() {
-  
+  midi.update();
   // Check for key press and release
   for(i=0;i<NumDigital;i++) {
     sdPins[i] = 0;
@@ -60,16 +60,16 @@ void loop() {
   for(i=0;i<NumDigital;i++) {
     if(sdPins[i]) {
       if(ldPins[i] == HIGH) {
-          midi.sendNoteOn(dNotes[i],127);
-      } else {
           midi.sendNoteOff(dNotes[i],127);
+      } else {
+          midi.sendNoteOn(dNotes[i],127);
       }
     }
   }
 
   // Check analog read out
   for(i=0;i<NumAnalog;i++) {
-    aVal[i] = 0x7f - analogRead(aPins[i])/102 * 12;
+    aVal[i] = 0x7f - analogRead(aPins[i])/32 * 4;
     
     if(aVal[i] != laPins[i]) {
       midi.sendControlChange(aNotes[i],aVal[i]);
